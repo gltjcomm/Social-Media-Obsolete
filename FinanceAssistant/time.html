@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <meta content="text/html" charset="UTF-8" />
+
+    <meta name = "viewport" content = "user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <title>Account Balance</title>
+
+    <link media="screen" href="./css/Mobile.css" type="text/css" rel="stylesheet">
+
+
+    <script type="text/javascript">
+    var langCode = "chi";
+    window.onload = function() {
+        document.getElementById("flag").src = "./images/flag/" + langCode + ".gif";
+    };
+    </script>
+</head>
+<body>
+<div id="contentDiv">
+    <table id="logoTable" cellpadding="2" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="left">
+                <a class=" normalBtn " href="query.html">Back</a>
+            </td>
+            <td align="right">
+                <img id="flag" src=""/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="left">
+                <div id="" class="bar">
+                    Time Deposit
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table id="accountTable" cellpadding="2" cellspacing="0" border="0" width="100%">
+        <colgroup>
+            <col width="150px"/>
+            <col width="*"/>
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="panelWrap">Account Name:</div>
+                </td>
+                <td>
+                    <div class="panelWrap readOnly">002-135***-203</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="panelWrap">Balance:</div>
+                </td>
+                <td>
+                    <div class="panelWrap readOnly">HKD 3,574.30 </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="panelWrap">Term:</div>
+                </td>
+                <td>
+                    <div class="panelWrap readOnly">6 months</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+	<div class="buttonWrap">
+       <a class="buttonStyle normalBtn normalSize" href="#">More ...</a>
+    </div>
+</div>
+<div id="footerDiv">
+    <ul class="listFooter">
+        <li><a class="slide" href="#">Privacy &amp; Security</a></li>
+        <li><a class="slide" href="#">Terms of Use</a></li>
+        <li><a class="slide" href="#">Contact Us</a></li>
+	    <li><a href="javascript:setFullSite();" rel="external">Full Website</a></li>
+    </ul>
+    <ul class="listFooter">
+        <li>?&nbsp;Copyright&nbsp;<span id="year">2013</span>&nbsp;ALL RIGHTS RESERVED.</li>
+    </ul>
+</div>
+</body>
+</html>

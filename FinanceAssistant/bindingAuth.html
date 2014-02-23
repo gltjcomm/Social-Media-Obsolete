@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <meta content="text/html" charset="UTF-8" />
+
+    <meta name = "viewport" content = "user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    
+
+    <title>Account Binding</title>
+
+    <link media="screen" href="./css/Mobile.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="./js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="./js/jqtouch.js"></script>
+    <script type="text/javascript" src="./js/maskAmount.js"></script>
+    <script type="text/javascript" src="./js/bindingAccount.js"></script>
+
+    <script type="text/javascript">
+    var langCode = "chi";
+    window.onload = function() {
+        document.getElementById("flag").src = "./images/flag/" + langCode + ".gif";
+    };
+    </script>
+</head>
+<body>
+<div id="contentDiv">
+    <table id="logoTable" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="left">
+                <img id="logo" src="./images/logo.png"/>
+            </td>
+            <td align="right">
+                <img id="flag" src=""/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="left">
+                <div id="" class="bar">
+                    Account Binding
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table id="securityTable" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <colgroup>
+            <col width="150px"/>
+            <col width="*"/>
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="panelWrap">Password:</div>
+                </td>
+                <td>
+                    <input id="password" class="inputStyle normalInput" type="password" size="30" maxlength="16" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="panelWrap">Security Code:</div>
+                </td>
+                <td>
+                    <input id="securityCode" class="inputStyle normalInput" type="password" size="30" maxlength="6" value="">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<div class="buttonWrap">
+       <a class="buttonStyle normalBtn normalSize" href="javascript:bindingAccount();">Confirm</a>
+    </div>
+</div>
+<div id="footerDiv">
+    <ul class="listFooter">
+        <li><a class="slide" href="#">Privacy &amp; Security</a></li>
+        <li><a class="slide" href="#">Terms of Use</a></li>
+        <li><a class="slide" href="#">Contact Us</a></li>
+	    <li><a href="javascript:setFullSite();" rel="external">Full Website</a></li>
+    </ul>
+    <ul class="listFooter">
+        <li>?&nbsp;Copyright&nbsp;<span id="year">2013</span>&nbsp;ALL RIGHTS RESERVED.</li>
+    </ul>
+</div>
+</body>
+</html>

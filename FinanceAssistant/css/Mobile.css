@@ -1,0 +1,135 @@
+@charset "UTF-8";
+body {
+    width: 100%;
+    overflow: hidden;
+    margin: 2px;
+    padding: 2px;
+    text-align: center;
+}
+
+#contentDiv {
+    padding: 5px;
+    border: 1px solid #C00;
+}
+
+#footerDiv {
+    padding: 5px;
+}
+
+div.bar {
+    line-height: 40px;
+    font-size: 20pt;
+    vertical-align: bottom;
+    font-weight: bold;
+    background-color: #C00;
+	color: #fff;
+}
+
+div.panelWrap {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+	margin: 10px 0px;
+	padding: 10px 5px;
+}
+
+div.buttonWrap {
+    padding: 5px 0px;
+}
+
+div.normalPanel {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+div.readOnly {
+    background-color: gray;
+}
+
+div.infoStyle {
+    text-align: center;
+}
+
+input.inputStyle {
+    text-align: left;
+	width: 100%;
+}
+
+input.normalInput {
+    font-size: 14px;
+	padding: 10px 0px;
+	border: 1px solid #AAA;
+	box-shadow: inset 0px 0px 5px #AAA;
+}
+
+a.normalSize {
+	font-size: 14px;
+}
+
+a.buttonStyle {
+	display: block;
+	border-radius: 0px;
+	-webkit-border-radius: 5px;
+	text-align: center;
+}
+
+a.normalBtn {
+	padding: 5px 0px;
+	border: 1px solid #A00;
+	box-shadow: 1px 0 1px #A00;
+	background: #C00;
+	color: #FFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+ul.listFooter {
+	padding: 5px 0px;
+	text-align: center;
+	font-size: 12px;
+}
+
+ul.listFooter li {
+	display: inline-block;
+	border-left: 1px solid #888;
+	padding: 0px 2px 0px 5px;
+}
+
+ul.listFooter li:first-child {
+	border-left: 0;
+}
+
+ul.listFooter li:last-child {
+	padding-left: 7px;
+}
+
+ul.listFooter li a {
+	display: inline-block;
+	font-weight: normal;
+	color: #f00;
+	padding: 0;
+	text-shadow: none;
+	text-decoration: underline;
+}
+
+table.balance {
+	background: url(../images/balance.png) #fff repeat-x;
+	padding: 10px 10px 10px 10px;
+}
+
+div.normallabel {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.graylabel, span.graylabel {
+	color: #A0A0A0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+div.normalnumber {
+    font-size: 12px;
+    font-weight: bold;
+}
