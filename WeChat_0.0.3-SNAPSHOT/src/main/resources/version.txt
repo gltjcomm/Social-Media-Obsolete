@@ -1,0 +1,5 @@
+Amend By    Amend On        Version             Descirption
+========    ===========     ==============      ========================================================
+Qing        20 Feb 2014     0.0.1-SNAPSHOT      Use Jsp as the Interface, could validate the request and reply the Text/News message, keyword for News is "最新消息"
+Qing        21 Feb 2014     0.0.2-SNAPSHOT      Rebuild the Project by Spring-MVC, use Jackson to support Json and reply Json Data.
+Qing 		23 Feb 2014		0.0.3-SNAPSHOT      Build /Interface/Process.do, support Chinese in the Reply Message.
