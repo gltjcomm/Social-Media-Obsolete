@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>test.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<link
+	href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dijit/themes/claro/claro.css"
+	rel="stylesheet" type="text/css">
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojo/dojo.js"
+	djConfig="parseOnLoad:true"></script>
+<script type="text/javascript">
+	require([ "dojo/parser" ]);
+	require([ "dijit/form/Form" ]);
+	require([ "dijit/form/ValidationTextBox" ]);
+	require([ "dijit/form/NumberTextBox" ]);
+	require([ "dijit/form/Button" ]);
+	require([ "dijit/form/Textarea" ]);
+
+	function callback(data) {
+	}
+
+	dojo.addOnLoad(function() {
+		var submit_form = dijit.byId("submit_form");
+		if (submit_form != undefined && submit_form != null) {
+			dojo.connect(submit_form, "onSubmit", function() {
+
+				if (submit_form.validate()) {
+					require([ "dojo/_base/xhr" ], function(xhr) {
+						xhr.post({
+							url : submit_form.action,
+							timeout : 5000,
+							//handleAs : "xml",//TODO
+							form : dojo.byId("submit_form"),
+							load : function(result) {
+								dojo.byId("result").value = result;
+								dojo.byId("status").innerHTML = "Complete!"
+							},
+							error : function() {
+								dojo.byId("status").innerHTML = "Error!"
+								alert("error occurs");
+							}
+						});
+					});
+				}
+
+				return false;
+			});
+		}
+	});
+</script>
+
+</head>
+
+<body class="claro">
+	<div style="float:left;">
+		<form id="submit_form"
+			action="/WeChat/Interface/Process.do?signature=3CDB7A880C27DA7DC8C8BC9E0D04BB26782192B1&timestamp=1&nonce=15"
+			method="post" data-dojo-type="dijit/form/Form">
+			<table border="0">
+				<tr>
+					<td>ToUserName:</td>
+					<td><input type="text" name="toUserName" value="toUserName"
+						data-dojo-type="dijit/form/ValidationTextBox" trim="true"
+						required="true" missingMessage="不能为空！"></td>
+				</tr>
+				<tr>
+					<td>FromUserName:</td>
+					<td><input type="text" name="FromUserName" value="FromUserName"
+						data-dojo-type="dijit/form/ValidationTextBox" trim="true"
+						required="true" missingMessage="不能为空！"></td>
+				</tr>
+				<tr>
+					<td>CreateTime:</td>
+					<td><input type="text" name="CreateTime" value="123456789"
+						data-dojo-type="dijit/form/NumberTextBox" trim="true"
+						required="true" missingMessage="不能为空！"></td>
+				</tr>
+				<tr>
+					<td>MsgType:</td>
+					<td><input type="text" name="MsgType" value="text"
+						data-dojo-type="dijit/form/ValidationTextBox" trim="true"
+						required="true" missingMessage="不能为空！"></td>
+				</tr>
+				<tr>
+					<td>Content:</td>
+					<td><input type="text" name="Content" value="Content"
+						data-dojo-type="dijit/form/ValidationTextBox" trim="true"
+						required="true" missingMessage="不能为空！"></td>
+				</tr>
+				<tr>
+					<td>MsgId:</td>
+					<td><input type="text" name="MsgId" value="987654321"
+						data-dojo-type="dijit/form/NumberTextBox" trim="true"
+						required="true" missingMessage="不能为空！"></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><button type="submit"
+							data-dojo-type="dijit/form/Button">提交</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div style="float:right;">
+		<div><span id="status" style="color:red;">&nbsp;</span></div>
+		<textarea id="result" data-dojo-type="dijit/form/Textarea" style="width:600px;min-height:300px;"></textarea>
+	</div>
+</body>
+</html>
