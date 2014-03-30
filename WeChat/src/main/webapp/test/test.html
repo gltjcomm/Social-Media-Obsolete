@@ -20,7 +20,27 @@
 	require([ "dijit/form/Button" ]);
 	require([ "dijit/form/Textarea" ]);
 
-	function callback(data) {
+	
+	function loadXMLDoc(url, data) {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				dojo.byId("result").value = xmlhttp.responseText;
+				dojo.byId("status").innerHTML = "Complete!";
+			} else if(xmlhttp.readyState == 4 && xmlhttp.status != 200) {
+				dojo.byId("status").innerHTML = "Error!";
+			} else {
+				dojo.byId("status").innerHTML = "Running...";
+			}
+		}
+		xmlhttp.open("POST", url, true);
+		xmlhttp.setRequestHeader("Content-type","text/xml;charset=UTF-8");
+		xmlhttp.send(data);
 	}
 
 	dojo.addOnLoad(function() {
@@ -29,22 +49,25 @@
 			dojo.connect(submit_form, "onSubmit", function() {
 
 				if (submit_form.validate()) {
-					require([ "dojo/_base/xhr" ], function(xhr) {
+					/* require([ "dojo/_base/xhr" ], function(xhr) {
 						xhr.post({
 							url : submit_form.action,
 							timeout : 5000,
 							//handleAs : "xml",//TODO
-							form : dojo.byId("submit_form"),
+							//form : dojo.byId("submit_form"),
+							//content : "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><xml><ToUserName>toUser</ToUserName><FromUserName>fromUser</FromUserName><CreateTime>1348831860</CreateTime><MsgType>text</MsgType><Content>this is a test</Content><MsgId>1234567890123456</MsgId></xml>",
+							content : "xml",
 							load : function(result) {
 								dojo.byId("result").value = result;
 								dojo.byId("status").innerHTML = "Complete!"
 							},
 							error : function() {
 								dojo.byId("status").innerHTML = "Error!"
-								alert("error occurs");
 							}
 						});
-					});
+					}); */
+					var content = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><TextMessage><ToUserName>toUser</ToUserName><FromUserName>fromUser</FromUserName><CreateTime>1348831860</CreateTime><MsgType>text</MsgType><Content>this is a test</Content><MsgId>1234567890123456</MsgId></TextMessage>";
+					loadXMLDoc(dojo.byId("submit_form").action, content);
 				}
 
 				return false;
@@ -57,8 +80,9 @@
 
 <body class="claro">
 	<div style="float:left;">
+	<!-- action="/WeChat/Interface/Process.do?signature=3CDB7A880C27DA7DC8C8BC9E0D04BB26782192B1&timestamp=1&nonce=15" -->
 		<form id="submit_form"
-			action="/WeChat/Interface/Process.do?signature=3CDB7A880C27DA7DC8C8BC9E0D04BB26782192B1&timestamp=1&nonce=15"
+			action="/WeChat/Interface/Process.do"
 			method="post" data-dojo-type="dijit/form/Form">
 			<table border="0">
 				<tr>

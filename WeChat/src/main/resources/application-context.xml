@@ -27,45 +27,14 @@
 					<list>
 						<value>text/plain;charset=UTF-8</value>
 						<value>text/html;charset=UTF-8</value>
+						<value>application/x-www-form-urlencoded;charset=UTF-8</value>
 					</list>
 				</property>
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<mvc:interceptors>
-		<bean
-			class="com.hsbc.hsdc.javacomm.wechat.interceptors.AuthenticateInterceptor" />
-	</mvc:interceptors>
-
-	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="order" value="1" />
-		<property name="ignoreAcceptHeader" value="true" />
-		<property name="mediaTypes">
-			<map>
-				<entry key="xml" value="application/xml" />
-			</map>
-		</property>
-		<property name="defaultViews">
-			<list>
-				<bean name="jaxb2MarshallingView"
-					class="org.springframework.web.servlet.view.xml.MarshallingView">
-					<property name="contentType" value="application/xml; charset=UTF-8" />
-					<property name="marshaller" ref="jaxbMarshall"></property>
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<!-- TODO -->
-	<oxm:jaxb2-marshaller id="jaxbMarshall">
-		<oxm:class-to-be-bound name="com.hsbc.hsdc.javacomm.wechat.message.sent.ImageSentMessage" />
-		<oxm:class-to-be-bound name="com.hsbc.hsdc.javacomm.wechat.message.sent.MusicSentMessage" />
-		<oxm:class-to-be-bound name="com.hsbc.hsdc.javacomm.wechat.message.sent.NewsSentMessage" />
-		<oxm:class-to-be-bound name="com.hsbc.hsdc.javacomm.wechat.message.sent.TextSentMessage" />
-		<oxm:class-to-be-bound name="com.hsbc.hsdc.javacomm.wechat.message.sent.VideoSentMessage" />
-		<oxm:class-to-be-bound name="com.hsbc.hsdc.javacomm.wechat.message.sent.VoiceSentMessage" />
-	</oxm:jaxb2-marshaller>
+	<!-- <mvc:interceptors> <bean class="com.hsbc.hsdc.javacomm.wechat.interceptors.AuthenticateInterceptor" 
+		/> </mvc:interceptors> -->
 
 </beans>
