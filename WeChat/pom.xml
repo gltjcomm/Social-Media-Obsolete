@@ -96,12 +96,12 @@
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.6</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
-		</dependency> -->
+		</dependency>
 
 		<!-- json -->
 		<!-- <dependency>

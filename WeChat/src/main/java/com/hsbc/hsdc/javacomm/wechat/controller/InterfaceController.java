@@ -2,8 +2,13 @@ package com.hsbc.hsdc.javacomm.wechat.controller;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +40,19 @@ public class InterfaceController {
 	public SentMessage receiveMessage(InputStream input) {
 		
 		//TODO - 解析 input - xml
+		SAXReader reader = new SAXReader();
+		try {
+			Document document = reader.read(input);
+			Element xml = document.getRootElement();
+			Iterator<Element> rootIter = xml.elementIterator();
+			
+			while(rootIter.hasNext()) {
+				Element element = rootIter.next();
+				System.out.println(element.getName() + ":" + element.getTextTrim());
+			}
+		} catch (DocumentException e) {
+			logger.error("Reading inputStream error.", e);
+		}
 		
 		TextSentMessage sentMessage = new TextSentMessage();
 
