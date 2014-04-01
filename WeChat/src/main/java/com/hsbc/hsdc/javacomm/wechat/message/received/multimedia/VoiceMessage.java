@@ -2,7 +2,7 @@ package com.hsbc.hsdc.javacomm.wechat.message.received.multimedia;
 
 import com.hsbc.hsdc.javacomm.wechat.message.received.MultimediaMessage;
 
-public class SoundMessage extends MultimediaMessage {
+public class VoiceMessage extends MultimediaMessage {
 
 	private String format;
 

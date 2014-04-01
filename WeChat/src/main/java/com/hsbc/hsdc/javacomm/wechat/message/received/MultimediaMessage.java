@@ -4,13 +4,13 @@ import com.hsbc.hsdc.javacomm.wechat.message.ReceivedMessage;
 
 public class MultimediaMessage extends ReceivedMessage {
 
-	private long mediaId;
+	private String mediaId;
 
-	public long getMediaId() {
+	public String getMediaId() {
 		return mediaId;
 	}
 
-	public void setMediaId(long mediaId) {
+	public void setMediaId(String mediaId) {
 		this.mediaId = mediaId;
 	}
 

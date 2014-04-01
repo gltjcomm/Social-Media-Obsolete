@@ -1,7 +1,6 @@
 package com.hsbc.hsdc.javacomm.wechat.controller;
 
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
@@ -20,7 +19,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.hsbc.hsdc.javacomm.wechat.exception.NoResultException;
 import com.hsbc.hsdc.javacomm.wechat.message.SentMessage;
-import com.hsbc.hsdc.javacomm.wechat.message.sent.TextSentMessage;
+import com.hsbc.hsdc.javacomm.wechat.message.received.LinkMessage;
+import com.hsbc.hsdc.javacomm.wechat.message.received.LocationMessage;
+import com.hsbc.hsdc.javacomm.wechat.message.received.TextMessage;
+import com.hsbc.hsdc.javacomm.wechat.message.received.multimedia.ImageMessage;
+import com.hsbc.hsdc.javacomm.wechat.message.received.multimedia.VideoMessage;
+import com.hsbc.hsdc.javacomm.wechat.message.received.multimedia.VoiceMessage;
 
 @Controller
 @RequestMapping("/Interface")
@@ -37,32 +41,19 @@ public class InterfaceController {
 
 	@RequestMapping(value = "/Process", params = { "!echostr" }, method = RequestMethod.POST)
 	@ResponseBody
-	public SentMessage receiveMessage(InputStream input) {
+	public SentMessage receiveMessage(InputStream inputStream) {
 		
-		//TODO - 解析 input - xml
-		SAXReader reader = new SAXReader();
-		try {
-			Document document = reader.read(input);
-			Element xml = document.getRootElement();
-			Iterator<Element> rootIter = xml.elementIterator();
-			
-			while(rootIter.hasNext()) {
-				Element element = rootIter.next();
-				System.out.println(element.getName() + ":" + element.getTextTrim());
-			}
-		} catch (DocumentException e) {
-			logger.error("Reading inputStream error.", e);
-		}
+		SentMessage message = explain(inputStream);
 		
-		TextSentMessage sentMessage = new TextSentMessage();
+//		TextSentMessage sentMessage = new TextSentMessage();
+//
+//		sentMessage.setToUserName("<![CDATA[toUser]]>");
+//		sentMessage.setFromUserName("<![CDATA[fromUser]]>");
+//		sentMessage.setCreateTime(new Date().getTime());
+//		sentMessage.setMsgType("<![CDATA[text]]>");
+//		sentMessage.setContent("<![CDATA[你好!]]>");
 
-		sentMessage.setToUserName("<![CDATA[toUser]]>");
-		sentMessage.setFromUserName("<![CDATA[fromUser]]>");
-		sentMessage.setCreateTime(new Date().getTime());
-		sentMessage.setMsgType("<![CDATA[text]]>");
-		sentMessage.setContent("<![CDATA[你好!]]>");
-
-		return sentMessage;
+		return message;
 	}
 	
 	@RequestMapping(value = "/Internal")
@@ -75,6 +66,147 @@ public class InterfaceController {
 	@ExceptionHandler({NoResultException.class})
 	public void handle() {
 		//TODO
+	}
+	
+	protected SentMessage explain(InputStream inputStream) {
+		//TODO - 解析 input - xml
+		SentMessage sentMessage = null;
+		SAXReader reader = new SAXReader();
+		
+		try {
+			Document document = reader.read(inputStream);
+			Element xml = document.getRootElement();
+
+			//print the tag and its value.
+			Iterator<Element> rootIter = xml.elementIterator();			
+			while(rootIter.hasNext()) {
+				Element element = rootIter.next();
+				System.out.println(element.getName() + ":" + element.getTextTrim());
+			}
+			
+			//depending on the message type to response.
+			String msgType = xml.elementTextTrim("MsgType");
+			
+			switch(msgType) {
+			default : 
+				sentMessage = null;
+				break;
+				
+			case "text":
+				sentMessage = receiveText(xml);
+				break;
+				
+			case "image":
+				sentMessage = receiveImage(xml);
+				break;
+				
+			case "voice":
+				sentMessage = receiveVoice(xml);
+				break;
+				
+			case "video":
+				sentMessage = receiveVideo(xml);
+				break;
+				
+			case "location":
+				sentMessage = receiveLocation(xml);
+				break;
+				
+			case "link":
+				sentMessage = receiveLink(xml);
+				break;
+			}
+		} catch (DocumentException e) {
+			logger.error("Reading inputStream error.", e);
+		}
+		
+		return sentMessage;
+	}
+	
+	private SentMessage receiveLink(Element element) {
+		LinkMessage message = new LinkMessage();
+		message.setMsgId(Long.parseLong(element.elementTextTrim("MsgId")));
+		message.setToUserName(element.elementTextTrim("ToUserName"));
+		message.setFromUserName(element.elementTextTrim("FromUserName"));
+		message.setCreateTime(Long.parseLong(element.elementTextTrim("CreateTime")));
+		message.setMsgType("link");
+
+		message.setTitle(element.elementTextTrim("Title"));
+		message.setDescription(element.elementTextTrim("Description"));
+		message.setUrl(element.elementTextTrim("Url"));
+		
+		return null;
+	}
+
+	private SentMessage receiveLocation(Element element) {
+		LocationMessage message = new LocationMessage();
+		message.setMsgId(Long.parseLong(element.elementTextTrim("MsgId")));
+		message.setToUserName(element.elementTextTrim("ToUserName"));
+		message.setFromUserName(element.elementTextTrim("FromUserName"));
+		message.setCreateTime(Long.parseLong(element.elementTextTrim("CreateTime")));
+		message.setMsgType("location");
+		
+		message.setLocationX(Double.parseDouble(element.elementTextTrim("Location_X")));
+		message.setLocationY(Double.parseDouble(element.elementTextTrim("Location_Y")));
+		message.setScale(Double.parseDouble(element.elementTextTrim("Scale")));
+		message.setLabel(element.elementTextTrim("Label"));
+		
+		return null;
+	}
+
+	private SentMessage receiveVideo(Element element) {
+		VideoMessage message = new VideoMessage();
+		message.setMsgId(Long.parseLong(element.elementTextTrim("MsgId")));
+		message.setToUserName(element.elementTextTrim("ToUserName"));
+		message.setFromUserName(element.elementTextTrim("FromUserName"));
+		message.setCreateTime(Long.parseLong(element.elementTextTrim("CreateTime")));
+		message.setMsgType("video");
+		
+		message.setMediaId(element.elementTextTrim("MediaId"));
+		message.setThumbMediaId(element.elementTextTrim("ThumbMediaId"));
+		
+		return null;
+	}
+
+	private SentMessage receiveVoice(Element element) {
+		VoiceMessage message = new VoiceMessage();
+		message.setMsgId(Long.parseLong(element.elementTextTrim("MsgId")));
+		message.setToUserName(element.elementTextTrim("ToUserName"));
+		message.setFromUserName(element.elementTextTrim("FromUserName"));
+		message.setCreateTime(Long.parseLong(element.elementTextTrim("CreateTime")));
+		message.setMsgType("voice");
+		
+		message.setMediaId(element.elementTextTrim("MediaId"));
+		message.setFormat(element.elementTextTrim("Format"));
+		
+		return null;
+	}
+
+	private SentMessage receiveImage(Element element) {
+		ImageMessage message = new ImageMessage();
+		message.setMsgId(Long.parseLong(element.elementTextTrim("MsgId")));
+		message.setToUserName(element.elementTextTrim("ToUserName"));
+		message.setFromUserName(element.elementTextTrim("FromUserName"));
+		message.setCreateTime(Long.parseLong(element.elementTextTrim("CreateTime")));
+		message.setMsgType("image");
+
+		message.setMediaId(element.elementTextTrim("MediaId"));
+		message.setPicUrl(element.elementTextTrim("PicUrl"));
+		
+		return null;
+	}
+
+	private SentMessage receiveText(Element element) {
+		TextMessage message = new TextMessage();
+		message.setMsgId(Long.parseLong(element.elementTextTrim("MsgId")));
+		message.setToUserName(element.elementTextTrim("ToUserName"));
+		message.setFromUserName(element.elementTextTrim("FromUserName"));
+		message.setCreateTime(Long.parseLong(element.elementTextTrim("CreateTime")));
+		message.setMsgType("text");
+		
+		message.setContent(element.elementTextTrim("Content"));
+		
+		return null;
 	}
 	
 }
