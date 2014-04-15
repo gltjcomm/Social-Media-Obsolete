@@ -36,7 +36,7 @@
 
 	<!-- <mvc:interceptors> <bean class="com.hsbc.hsdc.javacomm.wechat.interceptors.AuthenticateInterceptor" 
 		/> </mvc:interceptors> -->
-
+	
 	<bean id="xmlDispatcherFactory" class="com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.impl.XMLDispatcherFactory">
 		<constructor-arg name="clazzArray">
 			<array>
@@ -44,7 +44,7 @@
 			</array>
 		</constructor-arg>
 	</bean>
-
+	
 	<bean id="jsonDispatcherFactory" class="com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.impl.JSONDispatcherFactory">
 		<constructor-arg name="clazzArray">
 			<array />

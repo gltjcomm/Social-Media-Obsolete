@@ -2,8 +2,9 @@ package com.hsbc.hsdc.javacomm.wechat.message;
 
 /**
  * the super class of all received messages.
+ * 
  * @author peihuadeng
- *
+ * 
  */
 public class ReceivedMessage {
 
@@ -11,7 +12,6 @@ public class ReceivedMessage {
 	private String fromUserName;
 	private long createTime;
 	private String msgType;
-	private long msgId;
 
 	public String getToUserName() {
 		return toUserName;
@@ -44,13 +44,5 @@ public class ReceivedMessage {
 	public void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}
-
-	public long getMsgId() {
-		return msgId;
-	}
-
-	public void setMsgId(long msgId) {
-		this.msgId = msgId;
-	}
-
+	
 }

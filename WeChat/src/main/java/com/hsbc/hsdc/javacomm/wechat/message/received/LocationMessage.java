@@ -4,10 +4,19 @@ import com.hsbc.hsdc.javacomm.wechat.message.ReceivedMessage;
 
 public class LocationMessage extends ReceivedMessage {
 
+	private long msgId;
 	private double locationX;
 	private double locationY;
 	private double scale;
 	private String label;
+
+	public long getMsgId() {
+		return msgId;
+	}
+
+	public void setMsgId(long msgId) {
+		this.msgId = msgId;
+	}
 
 	public double getLocationX() {
 		return locationX;

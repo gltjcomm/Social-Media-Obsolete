@@ -1,6 +1,5 @@
 package com.hsbc.hsdc.javacomm.wechat.message;
 
-
 public class SentMessage {
 
 	private String toUserName;
