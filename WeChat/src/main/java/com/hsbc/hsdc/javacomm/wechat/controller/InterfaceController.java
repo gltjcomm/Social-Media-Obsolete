@@ -1,7 +1,5 @@
 package com.hsbc.hsdc.javacomm.wechat.controller;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -16,14 +14,13 @@ import com.hsbc.hsdc.javacomm.wechat.dispatcher.AbstractDispatcher;
 import com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.AbstractDispatcherFactory;
 import com.hsbc.hsdc.javacomm.wechat.message.ReceivedMessage;
 import com.hsbc.hsdc.javacomm.wechat.message.SentMessage;
-import com.hsbc.hsdc.javacomm.wechat.message.sent.TextSentMessage;
 
 @Controller
 @RequestMapping("/Interface")
 public class InterfaceController {
 
 	private final static Logger logger = Logger.getLogger(InterfaceController.class);
-	
+
 	private AbstractDispatcherFactory<AbstractDispatcher<ReceivedMessage, SentMessage>> dispatcherFactory = null;
 
 	@Resource(name = "xmlDispatcherFactory")
@@ -42,38 +39,22 @@ public class InterfaceController {
 	@ResponseBody
 	public SentMessage receiveMessage(@RequestBody String data) {
 		SentMessage message = null;
-		
-		//create specific dispatcher through the data and specific factory.
+
+		// create specific dispatcher through the data and specific factory.
 		AbstractDispatcher<ReceivedMessage, SentMessage> dispatcher = dispatcherFactory.createInstance(data);
-		
-		if(dispatcher != null) {
-			//construct the message object through specific dispatcher.
+
+		if (dispatcher != null) {
+			// construct the message object through specific dispatcher.
 			ReceivedMessage receivedMessage = dispatcher.construct(data);
-			if(receivedMessage != null) {
-				//dispatch the message to specific dispatcher and return the response message.
+			if (receivedMessage != null) {
+				// dispatch the message to specific dispatcher and return the
+				// response message.
 				message = dispatcher.dispatch(receivedMessage);
 			}
 		} else {
 			logger.warn("No suitable dispatcher found for the data : " + data);
 		}
-		
-		return message;
-	}
-	
-	@RequestMapping(value = "/json", method = RequestMethod.POST)
-	@ResponseBody
-	public SentMessage jsonMessage(@RequestBody String data) {
-		System.out.println("data : " + data);
-		
-		TextSentMessage message = new TextSentMessage();
-		
-		message.setFromUserName("fromUserName");
-		message.setToUserName("toUserName");
-		message.setCreateTime(new Date().getTime());
-		message.setMsgType("text");
-		
-		message.setContent("content");
-		
+
 		return message;
 	}
 
