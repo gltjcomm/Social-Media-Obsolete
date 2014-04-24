@@ -34,30 +34,36 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<!-- <mvc:interceptors> <bean class="com.hsbc.hsdc.javacomm.wechat.interceptors.AuthenticateInterceptor" 
-		/> </mvc:interceptors> -->
-	
-	<bean id="xmlDispatcherFactory" class="com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.impl.XMLDispatcherFactory">
+	<mvc:interceptors>
+		<bean
+			class="com.hsbc.hsdc.javacomm.wechat.interceptors.AuthenticateInterceptor" />
+	</mvc:interceptors>
+
+	<bean id="xmlDispatcherFactory"
+		class="com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.impl.XMLDispatcherFactory">
 		<constructor-arg name="clazzArray">
 			<array>
-				<value>com.hsbc.hsdc.javacomm.wechat.dispatcher.impl.xml.TextMessageDispatcher</value>
+				<value>com.hsbc.hsdc.javacomm.wechat.dispatcher.impl.xml.TextMessageDispatcher
+				</value>
 			</array>
 		</constructor-arg>
 	</bean>
-	
-	<bean id="jsonDispatcherFactory" class="com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.impl.JSONDispatcherFactory">
+
+	<bean id="jsonDispatcherFactory"
+		class="com.hsbc.hsdc.javacomm.wechat.dispatcher.factory.impl.JSONDispatcherFactory">
 		<constructor-arg name="clazzArray">
 			<array />
 		</constructor-arg>
 	</bean>
-	
+
 	<!-- WeChat Client Setting -->
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
 		<property name="messageConverters">
 			<list>
-				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 			</list>
-		</property>	
+		</property>
 	</bean>
-	
+
 </beans>

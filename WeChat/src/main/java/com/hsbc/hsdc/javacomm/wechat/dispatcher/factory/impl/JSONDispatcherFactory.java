@@ -27,7 +27,7 @@ public class JSONDispatcherFactory implements AbstractDispatcherFactory<JSONDisp
 		for (int i = 0; i < clazzArray.length; i++) {
 			try {
 				// get the Class object for the string.
-				Class<?> clazz = Class.forName(clazzArray[i]);
+				Class<?> clazz = Class.forName(clazzArray[i].trim());
 				if(JSONDispatcher.class.isAssignableFrom(clazz)) {
 					Class<JSONDispatcher<?>> jsonDispatcherClazz = (Class<JSONDispatcher<?>>) clazz;
 					// get static method - "boolean match(InputStream)".

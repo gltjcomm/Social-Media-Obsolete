@@ -28,7 +28,7 @@ public class XMLDispatcherFactory implements AbstractDispatcherFactory<XMLDispat
 		for (int i = 0; i < clazzArray.length; i++) {
 			try {
 				// get the Class object for the string.
-				Class<?> clazz = Class.forName(clazzArray[i]);
+				Class<?> clazz = Class.forName(clazzArray[i].trim());
 				if(XMLDispatcher.class.isAssignableFrom(clazz)) {
 					Class<XMLDispatcher<ReceivedMessage>> xmlDispatcherClazz = (Class<XMLDispatcher<ReceivedMessage>>) clazz;
 					// get static method - "boolean match(InputStream)".
